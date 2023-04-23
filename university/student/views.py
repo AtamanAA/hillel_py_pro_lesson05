@@ -13,9 +13,11 @@ def index(request):
 
 def generate_student(request):
     fake = Faker()
-    student = Student.objects.create(first_name=fake.first_name(),
-                                     last_name=fake.last_name(),
-                                     age=random.randint(16, 60))
+    student = Student.objects.create(
+        first_name=fake.first_name(),
+        last_name=fake.last_name(),
+        age=random.randint(16, 60),
+    )
     return HttpResponse(f"Generate one fake student: {student}")
 
 
@@ -26,9 +28,13 @@ def generate_students(request):
             fake = Faker()
             students_list = []
             for _ in range(count):
-                students_list.append(Student(first_name=fake.first_name(),
-                                             last_name=fake.last_name(),
-                                             age=random.randint(16, 60)))
+                students_list.append(
+                    Student(
+                        first_name=fake.first_name(),
+                        last_name=fake.last_name(),
+                        age=random.randint(16, 60),
+                    )
+                )
             students = Student.objects.bulk_create(students_list)
             return HttpResponse(f"Generate {count} fake students: <p>{students}</p>")
         else:
